@@ -1,6 +1,5 @@
-// const dotenv = require('dotenv');
-// dotenv.config();
-const {GMAIL_ID, GMAIL_PASSWORD} = require('./config/key')
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -11,18 +10,6 @@ const Port = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(cors({ origin: `${process.env.PORT}`, credentials: true }));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", `${process.env.PORT}`);
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 app.post("/mail", async (req, res) => {
   const {info} = req.body
@@ -43,14 +30,14 @@ function sendMail(info) {
   var transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: GMAIL_ID,
-      pass: GMAIL_PASSWORD
+      user: process.env.GMAIL_ID,
+      pass: process.env.GMAIL_PASSWORD
     },
   });
 
   //send to client
   var mailOptions = {
-    from: GMAIL_ID,
+    from: process.env.GMAIL_ID,
     to: info.email,
     subject: 'Portfolio Message',
     html: `<h2>Dear ${info.name} ,</h2><br>
@@ -69,8 +56,8 @@ function sendMail(info) {
   
   //send to self
   var mailOptions = {
-    from: GMAIL_ID,
-    to: GMAIL_ID,
+    from: process.env.GMAIL_ID,
+    to: process.env.GMAIL_ID,
     subject: 'Portfolio Message',
     html: `
     <b>Name: </b><p>${info.name}</p>

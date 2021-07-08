@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Form , Button} from 'react-bootstrap'
 import Particle from '../Particle'
 import SimpleMap from './SimpleMap'
+import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,14 +21,10 @@ function Contact() {
             toast.error("All Fields are Mandatory!")
             return 
         }else{
-            fetch("/mail",{
-                method:"post",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({info})
-            }).then(data=>{
+            axios.post('http://localhost:5000/mail',{
+                info
+            })
+            .then(data=>{
                 console.log(data)
                 toast.success("Mail Sent Successfully!")
                 toast.success("We'll get back to you")
