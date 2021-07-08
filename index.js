@@ -11,12 +11,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res, next) => {
-  console.log(process.env.GMAIL_PASSWORD)
-
-  return res.json({ message: "Server Running" });
-});
-
 app.post("/mail", async (req, res) => {
   const {info} = req.body
 
