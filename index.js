@@ -1,5 +1,6 @@
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
+const {GMAIL_ID, GMAIL_PASSWORD} = require('./config/key')
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -42,14 +43,14 @@ function sendMail(info) {
   var transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.GMAIL_ID,
-      pass: process.env.GMAIL_PASSWORD
+      user: GMAIL_ID,
+      pass: GMAIL_PASSWORD
     },
   });
 
   //send to client
   var mailOptions = {
-    from: process.env.GMAIL_ID,
+    from: GMAIL_ID,
     to: info.email,
     subject: 'Portfolio Message',
     html: `<h2>Dear ${info.name} ,</h2><br>
@@ -68,8 +69,8 @@ function sendMail(info) {
   
   //send to self
   var mailOptions = {
-    from: process.env.GMAIL_ID,
-    to: process.env.GMAIL_ID,
+    from: GMAIL_ID,
+    to: GMAIL_ID,
     subject: 'Portfolio Message',
     html: `
     <b>Name: </b><p>${info.name}</p>
