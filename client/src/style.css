@@ -204,7 +204,7 @@ html {
 }
 
 .home-header {
-  padding-top: 80px !important;
+  padding-top: 200px !important;
 }
 
 .home-section {
@@ -247,6 +247,9 @@ html {
   .myAvtar {
     padding-top: 2em !important;
     padding-bottom: 2em !important;
+  }
+  .home-header{
+    padding-top: 10px !important;
   }
 }
 
